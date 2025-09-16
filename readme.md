@@ -1,5 +1,5 @@
-## ASWING Official Documentation
-### Quick Introduction
+## ASWING Documentation
+### Introduction
 [ASWING](https://web.mit.edu/drela/Public/web/aswing/) is a computational tool developed at MIT by **Mark Drela** for the **aerodynamic, structural, and control analysis of aircraft**.  
 It is designed for **time-domain** or **frequency-domain** simulation of **flexible aircraft dynamics**; and it allows users to investigate both **steady and unsteady flight mechanics**.  
 
@@ -49,19 +49,38 @@ The validation effort is documented both in his thesis and in a dedicated series
 
 ---
 
-Together, these works provide a **comprehensive benchmark** of ASWING against trusted experimental and computational references, strengthening confidence in its predictive capabilities for flexible aircraft dynamics.
-## ASWING ISAE-Supaero/ENAC Documentation
+## ASWING Extended User Manual
 
-[Project Report](./documents/05_ASWING_Leonardo_s_Report.pdf)
+The **ASWING Extended User Manual** brings together two complementary resources:  
+- **ISAE-Supaero/ENAC Documentation** – a practical, hands-on guide with images, examples, and workflow notes to help users get started quickly.  
+- **Official MIT Documentation** – the original ASWING User Guide by Mark Drela, reorganized for clarity.  
+
+This manual is designed as a **practical reference** to facilitate everyday use of ASWING.  
+It does **not replace** the theoretical foundations established by Mark Drela or the extensive validation work performed by Romain Jan, but instead complements them by focusing on software usability.
+
+📄 [Download the ASWING Extended User Manual](./documents/05_ASWING_Extended_User_Manual.pdf)
+
+---
 
 ## WingLoop Extension
-Through the PhD of Leonardo AVONI, a code allowing 
+ASWING natively supports only **bi-scheduled linear controllers**, which limits its ability to represent more advanced control strategies.  
+To overcome this limitation, a new framework called **WingLoop** was developed during the PhD of Leonardo Avoni.  
 
-![My Project Logo](./documents/WingLoop.png)
+WingLoop enables the implementation of **arbitrary control laws** by linking ASWING with **Python** and optionally with **MATLAB** via their respective APIs.  
+This extension provides a flexible environment for closed-loop simulation of flexible aircraft dynamics.
+
+📖 More details can be found in the corresponding publication:  
+Leonardo Avoni, Murat Bronz, Jean-Philippe Condomines, and Jean-Marc Moschetta.  
+*"Enhancing ASWING Flight Dynamics Simulations with Closed-Loop Control for Flexible Aircraft,"*  
+AIAA 2025-3425, AIAA AVIATION FORUM AND ASCEND 2025, July 2025.  
+[https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425](https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425)
+
+![WingLoop Framework](./documents/WingLoop.png)
+
+---
 
 ## Other Notes
-Michael Kapteyn developed Aswing.py
-A Python wrapper for ASWING, accessible here
-https://github.com/michaelkapteyn/Aswing.py
+For reference, **Michael Kapteyn** has developed [Aswing.py](https://github.com/michaelkapteyn/Aswing.py),  
+a Python wrapper for ASWING that provides an alternative way to interact with the software.  
 
-Although existing, this code was not used 
+Although this wrapper exists, it was **not used** in the developments described here.
