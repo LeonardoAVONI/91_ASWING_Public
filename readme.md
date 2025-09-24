@@ -47,6 +47,9 @@ The validation effort is documented both in his thesis and in a dedicated series
 - **Part IV: Aeroelasticity**  
   [Experimental validation of an aeroelasticity framework – ASWING, Part IV](https://www.researchgate.net/publication/377725388_Experimental_validation_of_an_aeroelasticity_framework_ASWING_Part_IV_Aeroelasticity)
 
+The experimental data and supplementary materials are provided in [Romain Jan's GitHub Repository](https://github.com/rom1isae/ISAE_Aswing_Experimental_Validation)
+
+
 ---
 
 ## ASWING Extended User Manual
