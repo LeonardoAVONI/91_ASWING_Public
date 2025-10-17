@@ -25,6 +25,12 @@ For licensing inquiries, contact:
 
 ---
 
+## Install Method
+The methods allowing a proper install of ASWING are described in the `ASWING_dummy` folder. This folder simulates what a normal ASWING folder looks like, apart for the ASWING code content, that has been removed. There you will find:
+- **the `install_and_uninstall` folder:** containing  the instructions to install and uninstall ASWING
+- **the `test_run` folder:** containing series of tests to perform to check if the install completed well
+
+**Note:** the ASWING_dummy folder does not contain ASWING code. It is provided only as a new method to install ASWING. The code must be obtained by MIT as described from the previous section.
 
 
 ## Romain Jan Validation Work
