@@ -1,0 +1,1029 @@
+
+
+Revisions for ASWING v 4.3                   19 Nov 1996
+--------------------------
+
+* Made the definitions of the flaps/ailerons more flexible.
+  Up to three flaps can now be defined.  Antisymmetric 
+  (aileron) deflection is set up by specifying antisymmetric
+  dCL/dF and dCM/dF distributions on both left and right wings.
+
+* Angular accelerations in x and z can now be specified 
+  in addition to the rates.
+
+* Full flexibility is now provided for specifying moments
+  in lieu of rates or accelerations.
+
+* Redundant or nonexistent constraints are detected before
+  a solution is attempted, thus avoiding an arithmetic crash.
+
+* The variables plotted in the point-table above the loading plot 
+  can be toggled on/off with the O,V menus from .OPER, and the
+  selection is saved to the operating-point save file (PSAV).
+
+* A few bug fixes were made to the input-file generating routine
+  invoked with SAVE.
+
+
+Revisions for ASWING v 5.0                   30 Nov 1997
+--------------------------
+
+* Multiple beam can now be defined, which allows modeling of an 
+  entire configuration.  Both surface (lifting) and fuselage 
+  (non-lifting) beams can be defined.  The beams can be either
+  structurally isolated or joined in various ways.
+
+* The locations of point masses and strut/wire attach points are 
+  now specified directly via their cartesian x,y,z locations in 
+  the unloaded state.  The previous arcane specification via 
+  the local c,s,n offsets is no longer used.  Point masses
+  now have a drag area CDA associated with them.
+
+* All moment and rotation components (pitching has been added) 
+  can now be imposed.  Airfoil-section pitching moment of
+  inertia is now an additional beam-distribution variable.
+  Unsteady contributions and compressibility corrections
+  have been added to the section Cm.
+
+* A general sensitivity or derivative calculation routine has
+  been added.  All the stability derivatives can be coughed 
+  up for the current operating state.
+
+* The format of the input file has changed slightly to allow
+  the additional entities to be specified.  Upgrading "old"
+  input files should be relatively simple.
+
+* The theory document has been expanded, with more details
+  on the implementation of point masses, bracing struts or wires,
+  More details are also provided on the various boundary conditions 
+  required to close the elasticity equations.
+
+
+Revisions for ASWING v 5.1                   2 Jan 1998
+--------------------------
+
+* Full unsteady treatment is now implemented.  
+  Solutions can be obtained in the time domain (time marching),
+  or in the frequency domain (modal analysis).
+
+* The unsteady formulation is documented in the theory addendum.
+
+* Real-time movie of time-marched solution or eignemode 
+  time trace can be displayed.
+
+
+Revisions for ASWING v 5.2                   20 Feb 1998
+--------------------------
+
+* The BODE frequency-analysis facitility is now implemented.
+  Requires the ARPACK public-domain sparse eigenvalue package.
+
+* Flight conditions are now specified via a visual toggle table,
+  rather than the old hard-to-follow prompt chains.
+
+* A user-defined control law can be imposed in lieu of explicit
+  control deflection settings.  All the facitilies can be used
+  with this autopilot on or off.
+
+
+Revisions for ASWING v 5.30                  2 April 1998
+---------------------------
+
+* Generalized the reference-location V,alpha,beta, accelerations, etc.
+
+* Switched from V,alpha,beta to Ux,Uy,Uz as primary variables.
+  The former were causing major complication and confusion with the 
+  "reference" V,alpha,beta, which are different quantities.
+
+* Added a greatly-improved lift and drag post-stall model into the 
+  section characteristics.  Convergence is now reliable all the
+  way up to 90 degrees local incidence.  Post-stall drag behavior
+  is now rather realistic.
+ 
+* Added climb angle to list of specified constraints.  Typically,
+  this would be imposed to implicitly determine power setting.
+
+* Added matrix balancing to eigenmode analysis module, to reduce
+  sensitivity to machine roundoff.
+
+* Added more smarts to eigenmode scaling.  Airplane will no longer
+  appear as a pixel speck a mile away during a phugoid excursion.
+
+* Made the flight-condition printout more complete and organized.
+  Various toggle menus have been streamlined.
+
+* Xplot 4.38 now has screen buffering (courtesy of H.Youngren) to 
+  eliminate annoying flicker in the movie animation.  May cause pixel 
+  blackout on window resizing -- use previous Xplot 4.37 if this 
+  is a problem.
+
+
+Revisions for ASWING v 5.31                  27 April 1998
+---------------------------
+
+* Added an "All.Pnt" button to the constraint-selection table.
+  This makes all points have the same settings as the ones shown,
+  and saves a lot of laborious toggling and clicking to set up
+  multi-point cases.
+
+* Added printout of inertias about CG in addition to the ones
+  about 0,0,0.
+
+* Operating points can be changed inside Geometry Viewer via the
+  + and - keys.  Allows single-frame stepping through all points
+  present.
+
+* Structural Euler angles are now listed in degrees as advertised.
+  They were previously displayed in radians.
+
+* The gust parameters can now be read in from a file when a gust
+  index of -1 is specified with the GUST command.
+
+Revisions for ASWING v 5.32                   31 June 1998
+---------------------------
+
+ * Pixel blackout with the new "flicker-free" Xplot11 was fixed
+   by H.Youngren.
+
+
+Revisions for ASWING v 5.33                   8 August 1998
+---------------------------
+
+* Fixed a bug in the node-allocation logic.  Previously it would
+  fail if the t parameter was equal and opposite at the two ends
+  of a fuselage beam, for example  t = -1.0 ... +1.0 .  It would 
+  think the fuselage beam is "symmetric", and assign an incorrect 
+  zero-length interval at the middle node.
+  
+* The new VGET command now reads a gust file.  Before this was
+  done via the arcane "-1" gust type option.
+
+* Almost all of the code is free of dependence on the number of
+  hard-wired flap and engine indices KPFLP1,KPFLP2.. KPENG1... etc.
+  This simplifies changing the maximum flap and engine dimensions
+  NFLPX,NENGX in DIMEN.INC. The aswing.doc file has a list of what 
+  must be done for the change.
+  
+* Added the E option to the MODE menu.  This outputs the current
+  eXamine'd eigenvector to a file (the W option just dumps all 
+  the eigenvalues).  The output is done by SUBR.EVCOUT (in mode.f),
+  which can be customized as needed -- one generally doesn't want
+  the *entire* eigenvector.
+
+
+Revisions for ASWING v 5.34                   8 September 1998
+---------------------------
+
+* Fixed a bug in some of the local-acceleration terms.  The error 
+  showed up only in unsteady flight situations with extreme aircraft
+  path curvature.  The Udot vector now denotes the absolute rather
+  than the relative acceleration.  This is now more consistent with
+  the Wdot vector, which denotes absolute rotational acceleration.
+
+* Added the "=" option to most of the menus.  This simply displays
+  the current solution parameters.  Previously, there was no way 
+  to display this information without executing a calculation first.
+
+* Added grid-overlay enable/disable toggle to "O"ption sub-menu.
+  Dynamic eigenmodes and response mode viewing is MUCH better 
+  without the grid overlay -- doesn't blink on/off.
+
+* Starting a new time-marching sequence from the current point
+  now does NOT reset the time to zero.  The starting time is taken
+  directly from the starting point.  This allows an arbitrarily
+  long time sequence to be run in OPER (see aswing.doc).
+
+
+Revisions for ASWING v 5.35                   15 January 1999
+---------------------------
+
+* Vector quantities can now be optionally specified in Earth axes.
+  This is more convenient for specifing many non-level flight 
+  conditions, such as steady circling flight with the bank unknown.
+  The Earth/Body axis toggle is a new button on the visual
+  parameter-setting table, invoked with "T" in OPER and elsewhere.
+
+* The Earth-axes components of various vectors can now be listed.
+  Useful for seeing things like ground speed in maneuvers, 
+  sink rate in turning flight, etc.
+
+* Single-key time stepping has been added to the OPER plots.
+  A movie of the stresses (S), strains (C), and loading (L)
+  can be displayed in the unsteady mode by holding down the 
+  point-advance ">" key.
+
+
+Revisions for ASWING v 5.4                    28 March 1999
+---------------------------
+
+* A clear distinction is now made between the tension 
+  and elastic axes.  Previously, the two were assumed
+  to nearly cooincide.  The computed moments are post-
+  processed to translate them to these locations, making
+  them consistent with the moment definitions in standard
+  beam theory.  The translated bending moments Mc and Mn 
+  are defined about the tension axis, and the translated
+  torsion moment Ms is defined about the elastic axis.
+  The translated moments are what's now displayed.  The
+  theory document has the translation definitions.
+  There should be little change from the previous display,
+  unless the s axis is located very far from the elastic
+  and tension axes.
+
+* The "P" menu in OPER now allows plotting of selected
+  quantities versus operating-point index.  Previously, 
+  only unsteady point sequences could be plotted versus time.
+
+* The xxx.set file format has been changed to include 
+  the few new toggles.  The 5.3-format xxx.set will still
+  be read in properly, though.
+
+
+Revisions for ASWING v 5.41                   4 June 1999
+----------------------------
+
+* Added point parameter list at the top of the eigenmode root map.
+
+* All stability derivatives are now printed in OPER (with "M").
+  Previously, only the standard derivatives were printed.
+  The non-standard derivatives, such as Clq, Cmr, etc, are
+  nonzero for non-symmetric aircraft, or for any aircraft
+  in non-symmetric flight conditions.
+
+* Each line in the "Engine" block of the input file now begins 
+  with KPeng, which is the index of the engine-power parameter 
+  controlling that engine.  Previously, KPeng was assumed to
+  be incremented sequentially for each line.  Specifying KPeng 
+  explicitly allows...
+   - one parameter to influence more than one engine
+   - one physical engine to be influenced by more than one parameter
+
+  In the second case, the physical engine is modeled as two 
+  superimposed point engines at the same location.  Each point 
+  engine is controlled by one parameter, so the effect of the
+  two parameters is in effect superimposed.
+
+* The F/Peng and M/Peng parameters specified in the "Engine" block
+  are now scaled with the specified F and F*L units.  This was not 
+  done in ASWING 5.40 (a bug).  If the specified units were unity, e.g.
+       L  1.0 m
+       F  1.0 N
+  then the results were correct (which is why I didn't see the bug).
+
+* For time-marching solutions, the "X" command in OPER can now 
+  accept a specified-parameter filename argument.  The file contains 
+  a time trace of parameter values which are to be imposed during 
+  the calculation.  This allows easy specification of closed-loop or 
+  open-loop forcing, such as a commanded bank angle or an explicit 
+  rudder doublet input.
+
+* The CONTROL routine argument list has been extended to include 
+  the current commanded state values and specified control-deflection 
+  values.  These can be ignored or used to drive the control law
+  or to explicitly bias the control output (e.g. to simulate a pilot 
+  biasing the control law with stick inputs).  
+  Previously the commanded state and specified deflection were added 
+  on externally to CONTROL's input and output.  This "second guessing" 
+  is no longer done.  CONTROL receives the actual state and 
+  commanded-state values, and whatever control equation residual 
+  CONTROL puts out is imposed as-is.
+
+* Fixed a few minor logic bugs in the NODES menu.  The "F" and "P" 
+  commands were not processed properly.
+
+* Fixed minor bug in the preprocessing info dump.  The individual-beam
+  jig inertias for all beams except the first were not being displayed
+  properly.  There was no effect on the overall inertias or the solution.
+
+
+
+Revisions for ASWING v 5.42                   7 July 1999
+----------------------------
+
+* Fixed bug in xxx.asw file output routine.
+
+* Added a second argument to the aswing run command:
+
+  % aswing xxx yyy
+
+  This will try to read files  xxx.asw ,  yyy.set , yyy.pnt ,
+  so that one xxx.asw geometry file can be easily run with a variety
+  of yyy.set and yyy.pnt files.  Previously these yyy files had to 
+  be manually read with SGET and PGET which got tiresome.  If the
+  yyy argument is missing, it is taken to be the same as xxx, thus
+  defaulting to the previous convention.
+
+
+Revisions for ASWING v 5.43                  15 March 01 
+----------------------------
+
+* Added circling flight relation to constraint table:
+  Udot_Y  - U_X  Omega_Z   =  Ar     (Ar = 0 in steady circle)
+
+* Added the Sensor entity, which is specified in the xxx.asw input file.
+This delivers a pile of quantities at a specified location.  These 
+quantities can be listed or displayed in time-trace, Bode, or eigenvector 
+plots like all the other state parameters.
+
+* Added the sensor information to the call list of the CONLAW routine.
+The sensor information can therefore be used to drive control laws.
+
+* Made all the CONLAW global and sensor parameters indexable 
+by the indices declared in the INDEXC.INC include file.
+
+* Created a more general engine formulation, implemented in 
+the ENGINE routine.  This allows the thrust and moment to be
+some user-specified functions of the power setting and the
+local flow velocities.
+
+* The parameter-scheduling file for time-marching calculations
+in OPER can now optionally have incremental values for any parameter.
+These are added to the parameter's initial value at the start of
+the time-march calculation.
+
+
+Revisions for ASWING v 5.44                    02 Feb 03
+---------------------------
+
+* Added Makefile options for Intel Fortran Compiler (for Pentium 4, etc).
+Added GETARG0 function which doesn't barf if no Unix argument is provided.
+
+
+Revisions for ASWING v 5.45                    27 Jan 04   HHY
+---------------------------
+
+* Changed plotting code in io.f, xyproj.f to give more realistic lifting 
+surface plots for swept wings.  Projects chords "streamwise" rather than 
+normal to the spar line.  
+
+* Added option to dump "movie" as sequence of postscript frames.  Added code 
+to ASWING.INC, aswing.f, bode.f, init.f, mode.f, oper.f, option.f
+
+
+
+Revisions for ASWING v 5.55                    27 Jan 05 
+---------------------------
+
+* Fixed "freezing" of geometry for rigid-body calculations.
+
+* Added sinusoidal gust excitation for Bode response.
+
+* Added structural damping.  
+New beam properties "tdeps" and "tdgam" have been added.
+
+* Added induced velocity effect on sensors.
+
+* Improved engine modeling treatment.  
+Changed format of Engine data block.
+
+* Added propeller plume model (doesn't quite work yet)
+
+* Added input-error info printing to CONINI routine.
+
+* More detailed decriptions added to theory documents:
+  - Engine models             (asw.ps)
+  - Propeller plume models    (asw.ps)
+  - Structural damping        (aswu.ps)
+  - Sinusoidal gust response  (aswu.ps)
+
+
+Revisions for ASWING v 5.56                    5 Mar 05
+---------------------------
+
+* Added the capability to declare two beams to be parts of
+  the same physical surface.  This turns off the finite-core
+  model in their mutual vortex lattice induced velocities,
+  giving more accurate results.  Examples:
+
+ - A winglet defined as a separate beam is declared to be physically
+   part of the wing.  This ensures a proper circulation continuation
+   from wing to winglet.
+
+ - A stab of a T-tail is declared to be the same physical surface 
+   as the vertical tail.  The vertical tail then gets the proper 
+   endplating effect, which otherwise would be weakened by the
+   finite core model.
+
+* Added spanwise-mode treatment of frequency gust
+
+* BODE now can have multiple forcing parameters active.
+  Intended for multiple spanwise-mode gust components.
+
+
+Revisions for ASWING v 5.57                    8 Apr 05
+---------------------------
+
+* Engine plume jet model implemented.  Seems to work OK.
+  Engine plume is visible to surface and fuselage beams, 
+    point masses, sensors.
+
+* Put limiters in propeller model type 1 to handle non-physical 
+    specified shaft power without crashing
+
+* Added propeller force listing output
+
+* Fixed Bode plot scaling for frequency gusts
+
+* Added dCD/dFlap surface beam variables.  Intended for modeling a spoiler,
+   which has a nearly linear cd response to deflection.  This is not
+   well suited to drag of conventional flaps, which have a more quadratic
+   cd variation with deflection.
+
+
+Revisions for ASWING v 5.58
+---------------------------
+
+* Engine forces and moments are now taken to be part of the overall
+  aero forces and moments in the stability derivative calculation.
+  e.g. CXdP1 includes the direct contribution of engine thrust,
+  in additional to secondary effects from propwash, etc.
+
+* Fixed sensor output bugs in BODE
+
+* Added adjustable reference length for spanwise gust wavenumber
+
+* If the engine thrust-axis vector Tx,Ty,Tz=0,0,0, it will default to -1,0,0
+
+
+Revisions for ASWING v 5.60                   27 Jul 05
+---------------------------
+
+* Added Reduced Order Modeling (ROM) capability to the MODE menu.
+
+* Added E command to MODE menu.  This is identical to R command in BODE.
+  The same flags are used in both BODE and MODE. i.e. when you select
+  response variables in BODE, you will also be setting the variables
+  which are output by the ROM generation command.
+
+* Added % command to OPER, BODE, MODE.  This is the same as the T command,
+  except that with % you have to give keyboard inputs rather than cursor
+  click inputs.  This allows running ASWING in batch mode with a keystroke
+  stript file.
+
+* Unsteady Extension docuument (aswu.ps) has been significantly reorganized
+  and expanded.  Notation in sections 11,12,13 has been changed to match
+  standard control notation.  New material on Reduced Order Model theory
+  has been added to section 13.
+
+* Changed the example control-function residual in SUBR.CONTROL 
+  from  R = f(U,Q) - Delta
+    to  R = f(U,Q) + Delta
+  in order to match the new theory writeup in the Unsteady Extension
+  document, section 11.2.3 .  For a linear controller, this will
+  simply require changing the signs of all the gains (or change CONTROL).
+
+* Fixed default settings for circulation modes when a new geometry is LOADed.
+
+* session*.txt files have been updated
+
+* Added closed-loop control Bode analysis example to session2.txt file
+
+
+Revisions for ASWING v 5.61                     1 Nov 05
+---------------------------
+
+* Added printname definitions of recently-added parameters 
+
+* Added "Y" command in MODE (not in menu), which dumps eigenvectors via
+  the user-customizable SUBROUTINE EVCOUT (in src/evcout.f).
+  Partial eigen output is also available via the W,G commands.
+
+* Added the option to disable unsteady aero-lag effects (of shed vorticity).
+  Done with new L command in the "K ontrol" submenu in OPER,MODE,BODE.
+  
+
+Revisions for ASWING v 5.62                     10 Nov 05
+---------------------------
+
+* Redid some internal procedures for calculation of control derivatives.
+  Extended the SUBROUTINE CONTROL call list to return derivatives w.r.t.
+  specified control deflection.
+
+* ROM model now has sensor output sensitivities w.r.t. control deflections.
+  These are output in the new xxx_00.rom file.
+
+* Added related theory derivation to aswu.ps document.
+
+* Improved the labeling in xxx_nn.rom files.
+
+
+Revisions for ASWING v 5.63                      5 Jan 06
+---------------------------
+
+* Fixed problem with gust-mode input prompt in BODE
+
+
+
+Revisions for ASWING v 5.64                      20 Jul 06
+---------------------------
+
+* Blank lines can now contain tab characters (before this caused a read error)
+
+* Added = command to display current operating point which is the baseline state.
+
+* Fixed calculation of some derived variables in eigenvector, and added 
+  proper scaling to eigenvector outputs.  Some of the angle variables 
+  in the eigenvector were output as radians, even though the unit was 
+  printed as "deg".  Now there are actually printed in degrees.
+
+* Added gust-selection command I to MODE menu.  
+  Previous I command to change Arnoldi iteration limit has been removed 
+  (deemed unnecessary anyway).
+
+* Extended the ROM control-influence matrix w*B to include gust modes
+
+* BODE can now display the response of either the full system or the ROM system.
+  The ROM system must have been previously generated in MODE.
+  These compare sorta OK, but some strange results are present.  
+  Needs more testing.
+
+
+Revisions for ASWING v 5.65                      20 Sep 06
+---------------------------
+
+* MODE will now only store and display eigenvalues with positive imaginary parts.
+  There's less clutter on the root plot that way.  The ROM generator will still
+  properly use the complex conjugates of the complex modes.
+
+* Added "-" command to MODE to display current stored eigenvalues.
+
+* ROM matrices are now all written to one file, rather individual files.
+
+* In BODE, a near-zero response amplitude is now stored as 1.0e-10, rather than 1.
+
+* Fixed plotting selection of sensor vector parameters (couldn't select them before)
+
+* Updated the gust mode derivations in Section 9 of the Unsteady Extension document.
+
+
+Revisions for ASWING v 5.66                      22 Dec 06
+---------------------------
+
+* A ground can now be pinned, or sliding, or both (rigid).
+  Previously, only the rigid ground worked properly.
+
+* A joint endpoint can now be pinned, or sliding, or both (rigid).
+  Previously only rigid joints were permitted.  The joint types
+  are specified by new 5th and 6th numbers on the Joint data line.
+  If these are absent, the joint types default to the old rigid type.
+  Hence, old .asw files will work as before.
+
+* A beam can now have multiple #2 joint endpoints without causing
+  the dreaded "? No end kinematic constraint slot" error message.
+  However, such overconstrained beams must have sufficient compliance
+  in the appropriate directions to prevent matrix ill-conditioning problems.
+  See the user guide.
+
+* Added acceleration-integrators to the state and sensor variables.
+
+* The sensor linear acceleration output now includes gravity,
+  so that the sensor will now properly mimic an actual accelerometer.
+  A sensor in level flight will now report an upward acceleration of g,
+  whereas previously it would have reported zero.
+
+* The KU* and KQ* indices used to index variables in the control routines
+  have been reordered to make the now rather extensive list better organized.
+  This may require corresponding changes in your .con files.  
+  See the INDEXC.INC file where the indices are declared.
+
+  
+
+Revisions for ASWING v 5.67                      22 Jan 07
+---------------------------
+
+* Cleaned up node distribution and assignment logic.  
+  In the NODE menu, an insufficient number of nodes is now detected,
+  and a new minimum value is automatically set, with warning message.
+  So a minimum number of nodes (one per breakpoint), can be found
+  simply by specifying a very small number with the i command.
+
+* Also fixed up the node display plot in NODE.  The legend shows only
+  those nodes which are present.  It now also shows sensors and engines,
+  which weren't displayed before.
+
+* Added the true velocity, Mach, and Mach_PG to main operating-point listing.
+
+* All the ROM info now goes into one .rom file
+
+
+Revisions for ASWING v 5.68                      18 Feb 07
+---------------------------
+
+* Cleaned up the new joint treatment first added in v5.66 .
+  The two optional KJtype flags were redundant, since there's only 
+  one physical joint (duh).  Now, only one KJtype flag (0,1, or 2)
+  is expected for each joint definition line.  Absence of this flag
+  defaults to KJtype=0 as before.
+
+* Fixed a small error in one of the terms contributing to the 
+  sensor acceleration and rotation rate, due to sensor displacement
+  from beam deformation.
+
+* Added gust-mode response info to the .rom file
+
+
+Revisions for ASWING v 5.69                      1 Jun 07
+---------------------------
+
+* Fixed SUBROUTINE CONINI so that it properly reads sensor-variable gains.
+
+* Added the ability to specify commanded sensor variables in the 
+  specified-parameter file given to the X command in OPER.
+
+
+Revisions for ASWING v 5.70                      6 Jul 07
+---------------------------
+
+* Fixed treatment of sensor error-integrator variables.  
+  They weren't being updated properly during time-marching.
+
+
+Revisions for ASWING v 5.71                      1 Sep 07
+---------------------------
+
+* Fixed uninitialized variable problem in BODE, which failed with g77.
+
+* Made two separate SUBROUTINE SECONDS versions:
+    src/second_ifc.f   for Intel fortan compiler
+    src/second_g77.f   for g77 compiler
+  Set SECOND variable in bin/Makefile to appropriate version.
+
+
+Revisions for ASWING v 5.72                      9 Sep 07
+---------------------------
+
+* Added ground effect.  Both positive images (solid image surface) and 
+  negative images (constant-pressure images surface) can be simulated.
+  Theoretical description is now in the steady theory document.
+  A description has also been added to the aswing_doc.txt manual.
+
+* New G command now toggles ground effect for one or all operating points.
+  It also sets the ground normal vector.
+
+* The old G command in OPER has thus been superseded.  
+  No great loss, since it was a leftover from versions 4.x, 
+  and in 5.x it was mostly redundant anyway:
+   - Bank and elevation angles can still be set in the constraint table
+       or with the ! prefix like any other variable. 
+   - Gravity magnitude can now be set with the A command, 
+       along with the air density.
+
+* Added PDFs of constraint-table snapshots for various trim setups.
+  These are for the hawk case, but will apply to most other cases.
+
+* Fixed the plot library to properly make hardcopy Postscripts of 
+  solid-fill polygons, such as the square markers in the 
+  constraint-selection table.  Previously these showed up as 
+  unfilled squares.  There's no change in on-screen graphics.
+
+
+Revisions for ASWING v 5.73                      
+---------------------------
+ 
+* Added graphics enable/disable toggle to .PLPA menu from top level.
+  This allows turning off all graphics operations when running 
+  ASWING in batch mode, to maximize speed.
+
+* If a bad variable keyword is found in the input file, 
+  ASWING will now stop after printing the usual error message.  
+  Previously, ASWING kept running, and the error message was
+  likely to quickly scroll off the screen undetected.
+
+* Fixed an error in the apparent pitch inertia that's printed out in the 
+  info dump during startup.  This had no effect on any calculations.
+
+
+Revisions for ASWING v 5.74
+---------------------------
+
+* The small green xyz axes in the perspective plots are now "3D".
+  This makes is easier to see the orientation of the airplane.
+
+* Fixed a degree/radian conversion bug in SUBR.CONTROL, for Flap5 and above.
+
+* Added strain and shear stress to the sensor output quantities
+
+
+Revisions for ASWING v 5.75
+---------------------------
+
+* Added a new joint type, specified by KJtype=3 in the "Joint" block.
+  This is the same as the rigid KJtype=0, except that it allows 
+  an angle change about one specified axis, dependent on the moment
+  about that same axis.  Hence, it simulates a sprung hinge.
+  The angle vs moment relation is arbitrary, i.e. it can be nonlinear.
+
+* The distribution functions along a beam can now be specified 
+  in reverse order, with the t values either decreasing or increasing.
+  For example, this makes it more convenient to specify a left image
+  of a beam --- just copy the beam data, and negate all the t and y values
+  using the multipliers.  Data which is input in reverse order will
+  be reversed upon input to make t strictly increasing internally.
+
+* Added an chord-unsweep flag, which allows selecting 
+  of how chord lines are to be plotted.
+    F: Chord lines are normal to beam axis
+    T: Chord lines are projected to lie parallel to x axis.
+  The flag is toggled in the Options submenu, command U.
+
+* Beams which have the same physical index and adjacent endpoints
+  are now plotted with a common coordinate in the Loading plot.
+  So if a wing is defined via several separate beams (but with 
+  a common physical index), the entire spanwise loading will now
+  be displayed.  Previously, each of the beam pieces were displayed
+  separately, which was kinda annoying.
+
+* Reduced the under-relaxation threshholds for the beam Euler angles,
+  i.e. the max allowable Euler angle changes between each Newton iteration
+  are now smaller (about 5 degrees).   This discourages limit cycling 
+  with strongly nonlinear sprung hinges for KJtype=3 joints.
+
+
+Revisions for ASWING v 5.76   31 Jan 08
+---------------------------
+
+* Reformatted the ASWING.INC file so that all the variable descriptions
+  are conveniently in-line, rather than at the end of the file.
+
+* Fixed the fuselage-beam loading plot (L command in OPER,BODE,MODE)
+  to not produce glitches at zero-length intervals.  This is strictly
+  post-processing plot change --- there is no change in the solution
+  calculations.
+
+
+Revisions for ASWING v 5.77   31 Jan 08
+---------------------------
+
+* Eliminated yellow from the color-index arrays.
+  It was difficult to see on white paper hardcopy.
+
+* Fixed the sensor alpha,beta axes.  They weren't being
+  set up correctly whenever the A axis was "leaned" left or right,
+  away from the x,z plane.  I didn't see this bug before because 
+  the A axis is normally not leaned in any typical application.
+
+* Sensor V,alpha,beta can now be calculated from either
+   1)  kinematic+induced velocities  (i.e. everything), or...
+   2)  kinematic velocities only
+  Option 1) is what a real sensor would report.
+  Option 2) is useful for gauging the kinematic alpha seen by a tail or wingtip.
+  The options are toggled in the K menu, item K.
+
+* The aero-lag disable toggle (K menu, item L) now also applies 
+  to the _plotted_ f_aero load.  Previously it was applied only to 
+  the actual f_aero load that's used in the calculations.  The 
+  discrepancy was unnoticable in most cases, except maybe in 
+  fast modes or extremely violent maneuvers.
+
+* Added the inertial reaction load f_reac to the stuff which can be listed.
+  The listing is toggled on/off in the K menu, item V.  Also added 
+  to aswing_doc.txt a description of all the variables which can be
+  selected for listing.
+
+* Changed # of sensors to 12 in DIMEN.INC
+
+* Added new gust types 
+    type=4 gust with specified x (streamwise) and z (vertical) velocity
+           same as type 2 gust with x,z velocity specified along x-y line
+
+    type=5 cosine vertical gust (z velocity) per FAR 25.341
+           specified by gust Vz and gradient distance H 
+           this gust can be slanted along an x-y line (similar to type 2,4)
+
+* Fixed the QVW*B control-rate-influence matrix that's output for the ROM model.
+
+* Fixed the broken-loop gain calculation in BODE.
+
+
+Revisions for ASWING v 5.78   12 Apr 08
+---------------------------
+
+* Fixed sensor overlay data reading and plotting, in the P submenu in OPER.
+  Any sensor overlay data past the 8th one wasn't being read correctly.
+
+* Fixed ROM Bode calculation -- conjugate modes weren't being included in the Bode sum.
+
+* In the E submenu in MODE and R submenu in BODE...
+  Added 0,-1 special cases to toggle all parameters or turn off all parameters.
+  Reduces typing when lots of variables most be toggled.
+
+
+Revisions for ASWING v 5.79   22 May 08
+---------------------------
+
+* Fixed output parameter toggling
+
+
+Revisions for ASWING v 5.80   1 Jul 08
+---------------------------
+
+* Added phase step and mode-factor step to O menu and .set file
+
+* In O menu, changed  "F rame-number limit"  to  "N umber-of-frames limit" 
+  The F item is now for changing the mode-factor step.
+
+* In BODE, fixed the ROM response calculation of the following quantities:
+   - linear  accelerations  dUx,dUy,dUz
+   - angular accelerations  dWx,dWy,dWz
+   - Earth position RX,RY,RZ
+   - Heading angle  Psi
+  The problems were due to the fact that the ROM-basis eigenvectors
+  do not properly capture the accelerations and the zero-eigenmode variables.
+  These are now computed explicitly from the rotation rates and velocities:
+    (dUx,dUy,dUz) = i omega (Ux,Uy,Uz) + Omega X (Ux,Uy,Uz) + (Wx,Wy,Wz) X U
+    (dWx,dWy,dWz) = i omega (Wx,Wy,Wz)
+    (RX,RY,RZ) = T (Ux,Uy,Uz) / (i omega)
+     Psi = R3 (Wx,Wy,Wz) / (i omega)
+
+
+Revisions for ASWING v 5.82   2 Sep 08
+---------------------------
+
+* In BODE, fixed remaining problems with some of the sensor ROM responses.
+  All the responses now appear to match well between the exact and ROM options.
+
+* Added a short document examining the ROM Bode calculation issues which 
+  have been giving headaches recently, and now appear resolved (knock on wood).
+  rom_bode_test.pdf
+
+* Modified SUBROUTINE ENGINE to accept motor rotation rates, 
+  to allow computation of all "P-factor" prop force and moment components.
+  This in principle allows prediction of Whirl Flutter for the case
+  where the motor mount has elastic compliance.  Test case whirl.* 
+  demonstrates the capability.
+
+* Added engine prop circle to the geometry plot.
+
+* Added sensor-axis triple to the geometry plot.
+
+* Fixed the unswept-chordline plotting.  
+  Now it looks reasonable even for very large deformations.
+
+* Updated the Unsteady Extension document.
+  Added description of the new ROM response calculations 
+  for accelerations, Earth position, and heading angle.
+  Added section describing the unsteady prop model needed 
+  for whirl flutter predictions.  
+  Added a table of contents.
+
+* Updated the Steady document.
+  Added description of the new compliant-joint formulation, 
+  which is enabled with KJtype=3 (see aswing_doc.txt).
+  Added a bunch of minor clarifications.
+  Added a table of contents.
+
+
+
+Revisions for ASWING v 5.83   6 Sep 08
+---------------------------
+
+* Fixed engine plume modeling.  Only the first beam (typically the wing)
+  was correctly seeing the engine plumes.
+
+* Fixed the time-march plotting in OPER (V command in unsteady mode).
+  This got broken when the new plot features were added in 5.82.
+
+
+
+Revisions for ASWING v 5.84   2 Oct 08
+---------------------------
+
+* Fixed the sensor's M and F outputs.  These were returned as their 
+  xyz components.   Now they are returned in their csn components
+  which matches the documentation.
+
+* Fixed the apparent-mass inertias about the CG that are printed out 
+  on the initial info dump.  These weren't quite right when the airplane 
+  was displaced significantly from the origin.  Note that this does
+  not affect the simulation calculations, since these do not depend
+  on the apparent-inertia concept.
+
+
+
+Revisions for ASWING v 5.85   9 Dec 08
+---------------------------
+
+* Re-fixed the apparent-mass inertia output.
+ 
+* Fixed the stability-derivative output (M command in OPER).
+  A few of the rotation-rate derivatives were missing 
+  a contribution from the origin-based velocity derivatives, 
+  for cases where the velocity reference point which isn't 
+  at the origin.  Typically this was noticable only for cases 
+  where the reference point was relatively far from the origin.
+
+
+Revisions for ASWING v 5.86   15 Nov 09
+---------------------------
+
+* Added a least-squares constraint option to the constraint selection table.
+  This is useful for trimming cases with underdetermined (redundant) controls.
+
+* Added least-squares weights for flaps and engines to F and E submenus in OPER
+
+* In the F submenu in OPER, a flap index of 0 specifies that all the flaps
+  are to receive the flap value.  This is useful for setting them all to zero.
+
+* Added two user-defined constraints, labeled C_user1 and C_user2.
+  These are intended to be custom-defined, via hard coding 
+  in the SUBROUTINE GCON.  Current constraints drive some
+  sensor quantities to specified values.
+
+* The input file parser now allows a "!" character in the 
+  block-variable line, with everything after the "!" ignored.
+
+* Added a check and warning message for successive zero-length 
+  intervals.  The check is invoked at startup and after a LOAD.
+
+* Added ability to list total alpha change at each spanwise location,
+  due to all flap variables F1,F2...
+   a_flap  =  Sum_k [ F_k (dcl/dF_k) / (dcl/da) ]
+
+
+Revisions for ASWING v 5.90   24 Nov 09
+---------------------------
+
+* Constraint table now shows only up to the max number of flaps and engines
+  which are actually defined in the .asw file, and not up the the NFLPX and NENGX 
+  array limits as before.  This allows making these array limits quite large,
+  without making the constraint table unnecessarily large for simple cases.
+
+* In the interest of code simplification and long-term ease of maintenance, 
+  I got rid of the separate scalar and vector parameter arrays PARAMS,PARAMV,
+  and put everything into one array PARAM.  Nearly a hundred do-loops 
+  got eliminated as a result, which produced a significant shrinking 
+  and simplification  of the source code.  No difference is apparent 
+  to the user, except in the layout of some of the output-selection 
+  toggle menus.
+
+
+Revisions for ASWING v 5.91   10 Feb 10
+---------------------------
+
+* Set KBREAK=1 for Cm variable, so if it has any discontinuities 
+  they will be properly interpolated onto zero-length intervals.
+
+* Everything after a "!", "#", or "%" character in the data lines 
+  in distribution blocks is now guaranteed to be ignored.  
+  Previously, if the comment contained a valid keyword Aswing
+  would recognize it and try to act on it, giving an error message.
+
+
+Revisions for ASWING v 5.92   20 Feb 10  (from HYY)
+---------------------------
+
+* Fixed wake-filament plotting
+
+
+Revisions for ASWING v 5.93   18 Mar 10
+---------------------------
+
+* ASWING will now terminate if the sensor or engine array limits
+  are exceeded when the .asw file is processed during startup or LOAD.
+  Before there was only a warning message which was easy to miss.
+  
+
+Revisions for ASWING v 5.94   2 Feb 11
+---------------------------
+
+* Added wing-flapping setup code in q0flap.f, which was used to create
+  the flapping bird movie on the Aswing web page.  The setup is hard-wired,
+  and it's all commented-out in the standard code version.
+
+* Added additional file-save options to the Y command in OPER.
+
+* Fixed the control-derivative WRITE statements in io.f, so that 
+  a string-overflow error no longer occurs if a very large number 
+  of flaps or engines is used.  Instead, the string is simply truncated,
+  and can be increased in size via the NLDIM parameter in io.f.
+
+
+Revisions for ASWING v 5.95   27 Jul 11
+---------------------------
+
+* Added state-history and state-snapshot input/output capability, 
+  courtesy of Harold Youngren
+
+
+Revisions for ASWING v 5.96   15 Mar 12
+---------------------------
+
+* Added CY,Cl,Cn,sideforce to point arrays and point printout 
+  ( "=" command in OPER).  These can also be displayed in the
+  parameter list at the top of the loading plot ("L" in OPER),
+  after being selected in the K menu, item P.
+
+
+Revisions for ASWING v 5.97   20 Jul 12
+---------------------------
+
+* Point masses can now have inertias Ixx,Iyy,Izz,Ixy,Ixz,Iyz.
+  This eliminates the need to use mass dumbells to represent
+  concentrated masses with non-negligible inertias.
+
+Revisions for ASWING v 5.98   15 Mar 14
+---------------------------
+
+* Fixed problems with calculations in graphics-disabled mode.
+  The constraint setup routine (% command in OPER) wasn't parsing
+  the inputs properly.

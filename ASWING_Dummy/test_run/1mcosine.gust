@@ -1,0 +1,7 @@
+ 5	! 1-cosine gust, generalized
+ 0	! horizontal distance over x until beginning of gust
+ 0 	! coefficient for y slope
+ 24	! gradient length (start to maximum); relative to the Lg=48 of Murua
+ 3	! Wmax, vertical gust, equal to 0.01*30m/s
+ 0	! useless
+ 0	! useless

@@ -1,0 +1,213 @@
+#========================================
+Name
+Flexible HALE 3, Murua et al. 2012                                                              
+End
+
+# Geometry from: Murua el al. 2012 Open-Loop Stability and Closed-Loop Gust Alleviation on Flexible Aircraft Including Wake Modeling
+#============
+Units
+L 1.0 m
+T 1.0 s
+M 1.0 kg
+End
+#============
+Constant
+#   g         rho_SL     V_sound
+    9.808464  0.0899     295
+End
+#============tocheck
+Reference
+#	Sref	Cref	Bref 
+	31.8177	1	31.8177
+#
+#	Xmom	Ymom	Zmom
+	0.0	0.0	0.0
+End
+#============
+Joint
+# Fuselage (4) connected to the wing (1) at tfuselage = 1 and twing=0 
+# Fuselage (4) connected to the Vert.Stab. (3) at tfuselage = 11 and tvertstab= 1+2.5 
+# Vert.Stab (3) connected to Horiz.Stab. (2) at tverststab = 1 and thorizstab = 0
+#	Nbeam1	Nbeam2	t1	t2
+	4	1	1	0
+	4	3	11	3.5
+	3	2	1	0
+End
+
+#============
+Ground
+# the ground/reference is placed at the beginning of the fuselage (or main wing center)
+#	Nbeam	t	Kground
+	4	1.0	0
+End
+
+#======================
+Weight
+# the weight is placed at the main wing center/fuselage beginning
+#   Nbeam 	t	Xp	Yp	Zp	Mg	CDA	Vol	Hx	Hy	Hz (Left, Center, Right then Payload)
+*		1	1	1	1	9.808	1	1	1	1	1
+	1	0	0	0	0	50	0.0	0.0	0.0	0.0	0.0
+End
+
+#======================
+Sensor
+# two sensors are placed on the aircraft:
+#	one (1) at main wing root (beam 1, t=0)
+#	one (2) at main wing tip  (beam 1, t=15.9088), on the right wing ()
+# KS	Nb	t	Xp	Yp	Zp
+*		1.	1.	1.	1.
+   1 	1	0 	0	0	0	
+   2 	1	15.9088	0.0	15.9088	1.04189
+End
+
+#============
+
+Engine
+# two engines are on this aircraft
+#	one (1) at -2m from main wing root, mounted on the wing main axis
+#	one (1) at 2m from main wing root, mounted on the wing main axis
+# 	KPeng	IEtyp	Nbeam	t	Xp	Yp	Zp	Tx	Ty	Tz	dFdPe	dMdPe	Rdisk	Omega	cdA
+*				2	0	2	1	1	1	1	1	1	1.5	1	1							
+	1	0	1	-1	1	-1 	0.	-1.	0.	0.	1.0	0.0	1.0	0.	0.0
+	2	0	1	1	1	1 	0.	-1.	0.	0.	1.0	0.0	1.0	0.	0.0
+End
+#============
+Beam 1
+Wing
+# the wing reference s axis (see ASWING docs) is defined by the following x,y,z,chord coordinates
+	t	x	y	z	chord
+*	1.0	1.0	1.0	1.0	1
+	0.0	0.0	0.0	0.0	1
+	10.0	0.0	10	0.0	1
+	10.0	0.0	10	0.0	1
+	15.9088	0.0	15.9088	1.04189	1
+	
+# the s axis is at 50%chord from the leading edge of the wing
+# moreover, the center of gravity and elastic axis are both exactly 
+# on that s axis (zero c and s coordinates)
+	t	Xax	Ccg	Cea	Ncg	Nea
+*	1.0	1.0	1.0	1.0	1.0	1.0
+	0.0	0.5	0	0	0	0
+	15.9088	0.5	0	0	0	0
+
+# the following torsional and bending (out-of-plane and in-plane stiffnesses) are from the paper
+	t	GJ	EIcc	EInn
+*	1.0	2E4	4E4	8E6
+	0.0	1.0	1.0	1.0
+	15.9088	1.0	1.0	1.0
+
+# mass and inertia distribution. Since the s-inertia is the n-inertia+the c-inertia, 
+# the latter being zero, the s-inertia is the n-inertia. As with the weights, those are 
+# expressed in N/m and Nm while the paper expresses those with kg
+	t	mg	mgnn
+*	1.0	9.808	9.808
+	0.0	0.75	0.1
+	15.9088	0.75	0.1
+	
+# asymetric ailerons are placed on the wingtips of the aircraft
+# the hereby provided dCLdF and dCMdF are with-respect-to quarter-chord
+# they were obtained from thin-airfoil-theory, with a hinge in the last 25%c segment
+# From Fifth Edition Aerodynamics for Engineering Students, Thin Airfoil Theory
+# https://soaneemrana.org/onewebmedia/Aerodynamics---Houghton&Carpenter.pdf
+# At page 182, or 199 in the .pdf
+# in ASWING, the moment coefficient is with-respect-to quarter-chord
+# the units are [-]/degree
+	t		dCLdF1			dCMdF1
+*	1.0		0.06678407977830864	-0.011336246026463862
+	-15.9088	-1			-1
+	-10.0		-1			-1
+	-10.0		0			0
+	10.0		0			0
+	10.0		1			1
+	15.9088		1			1
+# aileron F4 for WRBM control
+	t		dCLdF4			dCMdF4
+*	1.0		0.06678407977830864	-0.011336246026463862
+	-15.9088	1			1
+	-10.0		1			1
+	-10.0		0			0
+	10.0		0			0
+	10.0		1			1
+	15.9088		1			1
+
+End
+
+#============
+Beam 2
+Horizontal Stabilizer
+# the tail and fuselage are considered rigid; hence do not have GJ, EIcc, EInn distribution
+# the beam is symmetric, located 10m downstream, 3.75m height, and has a 1m chord
+# those are the coordinates of the s-axis (also the elastic and mass centroid axis)
+	t	x	y	z	chord
+*	1.0	10.0	1.0	3.75	1
+	0.0	1.0	0.0	1.0	1
+	2.5	1.0	2.5	1.0	1
+	
+# here we specify that the s-axis is at 50% chord, and that the gravity and elastic axis are on the s-axis
+	t	Xax	Ccg	Cea	Ncg	Nea
+*	1.0	1.0	1.0	1.0	1.0	1.0
+	0.0	0.5	0	0	0	0
+	2.5	0.5	0	0	0	0
+
+# the mass and inertia distribution are defined in units of force
+	t	mg	mgnn
+*	1.0	9.808	9.808
+	0.0	0.08	0.01
+	2.5	0.08	0.01
+
+# a control surface (elevator) is defined symmetrically, similarly to the aileron for the wing
+	t	dCLdF2			dCMdF2
+*	1.0	0.06678407977830864	-0.011336246026463862
+	0.0	1			1
+	2.5	1			1
+End
+
+#============
+Beam 3
+Vertical Stabilizer
+# a positive t for the vertical stabilizer indicates going towards down
+# x,y,z define the location of the s-line. The chord is set to 1m
+	t	x	y	z	chord
+*	1.0	10.0	1.0	1.0	1
+	1.0	1.0	0.0	3.75	1
+	3.5	1.0	0.0	1.25	1
+# the s-line is at 50%chord, and the CG and EA are at the s-line
+	t	Xax	Ccg	Cea	Ncg	Nea
+*	1.0	1.0	1.0	1.0	1.0	1.0	
+	1.0	0.5	0	0	0	0
+	3.5	0.5	0	0	0	0
+
+# the mass and inertia distributionare as follows (according to paper)
+	t	mg	mgnn
+*	1.0	9.808	9.808
+	1.0	0.08	0.01
+	3.5	0.08	0.01
+
+# positive flap deflection leads to turning left
+	t	dCLdF3			dCMdF3
+*	1.0	0.06678407977830864	-0.011336246026463862
+	1.0	1			1
+	3.5	1			1
+End
+
+
+#===========
+Beam 4
+Fuselage
+# no inertia (mgnn), just mass
+# infinitely stiff
+# no aerodynamics
+# fuselage
+	t	x	y	z	radius
+	1.0	0	0.	0.0	0
+	11.0	10	0.	1.25	0
+# the mass and inertia distributionare as follows (according to paper)
+	t	mg
+*	1.0	9.808
+!*	1.0	0
+	1.0	0.08
+	11.0	0.08
+
+End
+
+
