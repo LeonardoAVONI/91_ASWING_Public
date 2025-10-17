@@ -1,10 +1,11 @@
-## ASWING Documentation
-### Introduction
+# ASWING Documentation
+
+---
+## Introduction
 [ASWING](https://web.mit.edu/drela/Public/web/aswing/) is a computational tool developed at MIT by **Mark Drela** for the **aerodynamic, structural, and control analysis of aircraft**.  
 It is designed for **time-domain** or **frequency-domain** simulation of **flexible aircraft dynamics**; and it allows users to investigate both **steady and unsteady flight mechanics**.  
 
 Comprehensive documentation and theoretical background (steady and unsteady formulations) are available on the [official ASWING page](https://web.mit.edu/drela/Public/web/aswing/), along with sample input files and example calculations.
-
 
 ### License Information
 
@@ -23,16 +24,15 @@ For licensing inquiries, contact:
 
 **Note**: It is your responsibility to obtain and comply with the appropriate license from MIT and Prof. Mark Drela before using ASWING.
 
----
 
-## Install Method
+### Install Method
 The methods allowing a proper install of ASWING are described in the `ASWING_dummy` folder. This folder simulates what a normal ASWING folder looks like, apart for the ASWING code content, that has been removed. There you will find:
 - **the `install_and_uninstall` folder:** containing  the instructions to install and uninstall ASWING
 - **the `test_run` folder:** containing series of tests to perform to check if the install completed well
 
 **Note:** the ASWING_dummy folder does not contain ASWING code. It is provided only as a new method to install ASWING. The code must be obtained by MIT as described from the previous section.
 
-
+---
 ## Romain Jan Validation Work
 ASWING has been extensively validated in the PhD work of **Romain Jan**,  
 titled *"Récupération d'énergie sur drone à voilure souple"* (*Energy Recovery for Flexible Wing UAV*)  
