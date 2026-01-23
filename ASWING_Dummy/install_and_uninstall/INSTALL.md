@@ -78,6 +78,8 @@ make
 
 The executable `aswing` will be created in the `bin` directory.
 
+> ✅ For faster compiling, one can try multithreading, through `make -j x`. The value of `x` depends on the maximum number of threads of your hardware.
+
 ---
 
 ## 5. Run ASWING
