@@ -86,6 +86,12 @@ AIAA 2025-3425, AIAA AVIATION FORUM AND ASCEND 2025, July 2025.
 
 ![WingLoop Framework](./documents/WingLoop.png)
 
+
+---
+
+## MATLAB -Simulink Install Procedures
+To ease WingLoop use, [an installation guide](./documents/Matlab_Setup_Guide.pdf) was written specifically for Ubuntu concerning MATLAB + Simulink install, with desktop icons.
+
 ---
 
 ## Other Notes
