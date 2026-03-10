@@ -72,20 +72,20 @@ It does **not replace** the theoretical foundations established by Mark Drela or
 ---
 
 ## WingLoop Extension
-ASWING natively supports only **bi-scheduled linear controllers**, which limits its ability to represent more advanced control strategies.  
-To overcome this limitation, a new framework called **WingLoop** was developed during the PhD of Leonardo Avoni.  
+ASWING natively supports only **bi-scheduled linear controllers**, limiting the implementation of advanced control strategies.  
+To address this, **WingLoop** was developed during the PhD of Leonardo Avoni.
 
-WingLoop enables the implementation of **arbitrary control laws** by linking ASWING with **Python** and optionally with **MATLAB** via their respective APIs.  
-This extension provides a flexible environment for closed-loop simulation of flexible aircraft dynamics.
+WingLoop connects ASWING with **Python, MATLAB, and Simulink** (via the MATLAB Engine API), enabling the implementation of **arbitrary control laws** for closed-loop simulations of flexible aircraft dynamics.
 
-📖 More details can be found in the corresponding publication:  
-Leonardo Avoni, Murat Bronz, Jean-Philippe Condomines, and Jean-Marc Moschetta.  
+📖 **Reference:**  
+L. Avoni, M. Bronz, J.-P. Condomines, and J.-M. Moschetta,  
 *"Enhancing ASWING Flight Dynamics Simulations with Closed-Loop Control for Flexible Aircraft,"*  
-AIAA 2025-3425, AIAA AVIATION FORUM AND ASCEND 2025, July 2025.  
-[https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425](https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425)
+AIAA AVIATION FORUM AND ASCEND 2025, AIAA 2025-3425.  
+https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425
 
 ![WingLoop Framework](./documents/WingLoop.png)
 
+**Code available at: https://github.com/LeonardoAVONI/WingLoop**
 
 ---
 
