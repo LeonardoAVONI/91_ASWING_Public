@@ -75,13 +75,13 @@ It does **not replace** the theoretical foundations established by Mark Drela or
 ASWING natively supports only **bi-scheduled linear controllers**, limiting the implementation of advanced control strategies.  
 To address this, **WingLoop** was developed during the PhD of Leonardo Avoni.
 
-WingLoop connects ASWING with **Python, MATLAB, and Simulink** (via the MATLAB Engine API), enabling the implementation of **arbitrary control laws** for closed-loop simulations of flexible aircraft dynamics.
+WingLoop connects ASWING with **Python, MATLAB, and Simulink** using the [matlab engine API](https://pypi.org/project/matlabengine/), enabling the implementation of **arbitrary control laws** for closed-loop simulations of flexible aircraft dynamics.
 
 📖 **Reference:**  
 L. Avoni, M. Bronz, J.-P. Condomines, and J.-M. Moschetta,  
 *"Enhancing ASWING Flight Dynamics Simulations with Closed-Loop Control for Flexible Aircraft,"*  
 AIAA AVIATION FORUM AND ASCEND 2025, AIAA 2025-3425.  
-https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425
+[https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425](https://arc.aiaa.org/doi/abs/10.2514/6.2025-3425)
 
 ![WingLoop Framework](./documents/WingLoop.png)
 
