@@ -67,7 +67,7 @@ The **ASWING Extended User Manual** brings together two complementary resources:
 This manual is designed as a **practical reference** to facilitate everyday use of ASWING.  
 It does **not replace** the theoretical foundations established by Mark Drela or the extensive validation work performed by Romain Jan, but instead complements them by focusing on software usability.
 
-📄 [Download the ASWING Extended User Manual](./documents/05_ASWING_Extended_User_Manual.pdf)
+📄 [Download the ASWING Extended User Manual](./documents/15_ASWING_Extended_User_Manual.pdf)
 
 ---
 
